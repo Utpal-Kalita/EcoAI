@@ -1,0 +1,36 @@
+services:
+  # Backend API Service
+  - type: web
+    name: ecoai-backend
+    runtime: node
+    env: node
+    buildCommand: npm install
+    startCommand: npm start
+    rootDir: backend
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: AI_URL
+        fromService:
+          type: web
+          name: ecoai-ai-service
+          property: url
+    healthCheckPath: /health
+    plan: free
+
+  # AI Service (Python FastAPI)
+  - type: web
+    name: ecoai-ai-service
+    runtime: python
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app:app --host 0.0.0.0 --port $PORT
+    rootDir: ai-service
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.18
+      - key: HF_TOKEN
+        sync: false
+      - key: CEREBRAS_API_KEY
+        sync: false
+    plan: free

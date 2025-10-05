@@ -29,6 +29,25 @@ EcoAI is an interactive web platform developed for the FutureStack GenAI hackath
    - Frontend: `cd frontend; npm run dev` (Make sure frontend is running on port 3000).
 5. Access the app at `http://localhost:3000`.
 
+## 🚀 Deploy to Production
+
+Ready to deploy? Check out our deployment guides:
+
+- **[Quick Deploy Guide](./QUICKDEPLOY.md)** - One-click deployment buttons
+- **[Full Deployment Guide](./DEPLOYMENT.md)** - Detailed step-by-step instructions
+
+### Quick Deploy Options
+
+**Option 1: Vercel (Frontend) + Render (Backend + AI)**
+- Frontend: [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Utpal-Kalita/EcoAI&project-name=ecoai&repository-name=ecoai&root-directory=frontend)
+- Backend + AI: [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
+
+**Option 2: Railway (Full Stack)**
+- [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https://github.com/Utpal-Kalita/EcoAI)
+
+See [QUICKDEPLOY.md](./QUICKDEPLOY.md) for detailed deployment instructions.
+
+
 
 ## Architecture Diagram
 ![ecoAI Architecture](docs/ecoAI-architecture.png)  

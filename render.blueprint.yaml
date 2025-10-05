@@ -1,0 +1,37 @@
+# Render.com Blueprint for EcoAI
+# This file configures the deployment of EcoAI's backend and AI services on Render
+
+services:
+  # Backend API Service (Node.js/Express)
+  - type: web
+    name: ecoai-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: AI_URL
+        fromService:
+          type: web
+          name: ecoai-ai-service
+          property: url
+
+  # AI Service (Python/FastAPI)
+  - type: web
+    name: ecoai-ai-service
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: cd ai-service && pip install -r requirements.txt
+    startCommand: cd ai-service && uvicorn app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.18
+      - key: HF_TOKEN
+        sync: false
+      - key: CEREBRAS_API_KEY
+        sync: false
