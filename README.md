@@ -1,6 +1,64 @@
 # EcoAI: GenAI-Powered Climate Action Advisor
 EcoAI is an interactive web platform developed for the FutureStack GenAI hackathon (Sept 29 - Oct 5, 2025). It empowers users to reduce their carbon footprint through AI-driven insights, personalized sustainability plans, and real-time "what-if" simulations. Built with Next.js, Node.js/Express, Meta's Llama 3.1, Cerebras, and Docker, ecoAI combines cutting-edge AI with a polished UX to make climate action accessible.
 
+## 🚀 Quick Deploy (Recommended)
+
+### One-Command Deployment with Docker
+```bash
+# Clone the repository
+git clone https://github.com/Utpal-Kalita/EcoAI.git
+cd EcoAI
+
+# Run the quick deploy script
+./quick-deploy.sh
+```
+
+The script will:
+1. ✅ Validate prerequisites (Docker, ports, etc.)
+2. 🔐 Help you set up environment variables
+3. 🏗️ Build all Docker images
+4. 🚀 Start all services
+5. 🏥 Verify service health
+
+**Access the application at:** http://localhost:3000
+
+📖 **New to EcoAI?** Start here: [Getting Started Guide](GETTING_STARTED.md)
+
+### Alternative Deployment Methods
+
+#### Using Make (Convenient)
+```bash
+make install  # Setup environment
+make validate # Check prerequisites
+make deploy   # Build and deploy
+```
+
+#### Using Docker Compose (Manual)
+```bash
+# 1. Set up environment
+cp .env.example .env
+# Edit .env and add your HF_TOKEN and CEREBRAS_API_KEY
+
+# 2. Validate deployment
+./validate-deployment.sh
+
+# 3. Deploy with Docker Compose
+docker-compose up --build -d
+
+# 4. Check status
+docker-compose ps
+docker-compose logs -f
+```
+
+### 📚 Documentation
+
+- 📖 [Getting Started Guide](GETTING_STARTED.md) - Perfect for first-time users
+- 🐳 [Docker Guide](DOCKER.md) - Detailed Docker deployment and management
+- 🚀 [Deployment Guide](DEPLOYMENT.md) - Comprehensive deployment with troubleshooting
+- 🛠️ [Makefile Commands](Makefile) - Quick reference for `make` commands
+
+For detailed deployment instructions, troubleshooting, and production deployment, see the documentation above.
+
 ## Features
 - Input daily habits (energy use, travel, diet) for carbon footprint analysis
 - Generate tailored sustainability plans using Llama 3.1
@@ -13,8 +71,8 @@ EcoAI is an interactive web platform developed for the FutureStack GenAI hackath
 - **Backend:** Node.js 20.x with Express
 - **AI Service:** Python3.9+, Llama 3.1 (Hugging Face), Cerebras SDK, LangChain, Hugging Face Embeddings, FAISS
 
-## Setup Instructions
-1. Clone: `git clone https://github.com/mdkamranalam/EcoAI.git`.
+## Manual Setup Instructions (Development)
+1. Clone: `git clone https://github.com/Utpal-Kalita/EcoAI.git`.
 2. Install:
    - Frontend: `cd frontend; npm install`.
    - Backend: `cd backend; npm install`.
@@ -24,7 +82,7 @@ EcoAI is an interactive web platform developed for the FutureStack GenAI hackath
    - Frontend: env.example content (copy to .env and fill value in `NEXT_PUBLIC_API_URL=http://localhost:3001`).
    - Backend: env.example content (copy to .env and fill value in `AI_URL=http://127.0.0.1:8000`).
 4. Run:
-   - AI Service: `cd ai-service; unicorn app:app --reload --port 8000` (Make sure AI service is running on port 8000).
+   - AI Service: `cd ai-service; uvicorn app:app --reload --port 8000` (Make sure AI service is running on port 8000).
    - Backend: `cd backend; npm run dev` (Make sure backend is running on port 3001).
    - Frontend: `cd frontend; npm run dev` (Make sure frontend is running on port 3000).
 5. Access the app at `http://localhost:3000`.
