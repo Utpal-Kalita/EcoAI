@@ -62,6 +62,18 @@ function generateSimulation(footprint, simulations) {
   return scenarios[Math.floor(Math.random() * scenarios.length)];
 }
 
+// Fallback plan when AI service is unavailable
+function generateFallbackPlan(footprint) {
+  const plans = [
+    "* Reduce energy consumption by switching to LED bulbs and unplugging devices when not in use",
+    "* Consider carpooling or using public transportation to reduce travel emissions",
+    "* Adopt a plant-based diet 2-3 days per week to lower food-related carbon footprint",
+    "* Install a programmable thermostat to optimize heating and cooling",
+    "* Switch to renewable energy providers if available in your area",
+  ];
+  return plans.join("\n");
+}
+
 // API endpoint
 app.post("/analyze", async (req, res) => {
   try {
@@ -88,19 +100,34 @@ app.post("/analyze", async (req, res) => {
 
     const aiUrl = process.env.AI_URL || "http://localhost:8000";
 
-    const apiResponse = await fetch(`${aiUrl}/process`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(req.body),
-    });
-    const apiData = await apiResponse.json();
-    console.log("API Data:", apiData);
+    let plan = [];
+    let simulation = {};
 
-    // Extract data from AI service response
-    // const responseplans = apiData.plans
-    const responsefootprint = apiData.footprint;
-    const plan = apiData.plan;
-    const simulation = apiData.simulation;
+    try {
+      // Try to connect to AI service
+      const apiResponse = await fetch(`${aiUrl}/process`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(req.body),
+      });
+
+      if (apiResponse.ok) {
+        const apiData = await apiResponse.json();
+        console.log("API Data:", apiData);
+
+        // Extract data from AI service response
+        plan = apiData.plan;
+        simulation = apiData.simulation;
+      } else {
+        console.warn("AI service returned non-OK status, using fallback");
+        plan = generateFallbackPlan(footprint);
+        simulation = generateSimulation(footprint, {});
+      }
+    } catch (error) {
+      console.warn("AI service unavailable, using fallback:", error.message);
+      plan = generateFallbackPlan(footprint);
+      simulation = generateSimulation(footprint, {});
+    }
 
     // Generate response
     const response = {
