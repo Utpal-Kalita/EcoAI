@@ -4,10 +4,46 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
+
+// CORS Configuration for production
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://localhost:3000',
+  process.env.FRONTEND_URL,
+  // Add your Vercel deployment URL pattern
+  /^https:\/\/.*\.vercel\.app$/,
+  /^https:\/\/ecoai.*\.vercel\.app$/
+].filter(Boolean);
 
 // Middleware
-app.use(cors({ origin: "*" }));
+app.use(cors({ 
+  origin: function (origin, callback) {
+    // Allow requests with no origin (mobile apps, Postman, etc.)
+    if (!origin) return callback(null, true);
+    
+    // Check if origin is in allowed list or matches pattern
+    const isAllowed = allowedOrigins.some(allowed => {
+      if (typeof allowed === 'string') {
+        return allowed === origin;
+      }
+      if (allowed instanceof RegExp) {
+        return allowed.test(origin);
+      }
+      return false;
+    });
+    
+    if (isAllowed) {
+      callback(null, true);
+    } else {
+      console.log('CORS blocked origin:', origin);
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 
 // Mock carbon footprint calculation
@@ -124,12 +160,55 @@ app.post("/analyze", async (req, res) => {
   }
 });
 
-// Health check
-app.get("/health", (req, res) => {
-  res.json({ status: "ok", message: "EcoAI backend is running" });
+// Health check endpoint with dependency status
+app.get("/health", async (req, res) => {
+  const health = {
+    status: "ok",
+    message: "EcoAI backend is running",
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV || "development",
+  };
+
+  // Check AI service health
+  try {
+    const aiUrl = process.env.AI_URL || "http://localhost:8000";
+    const aiHealth = await fetch(`${aiUrl}/health`, { 
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      signal: AbortSignal.timeout(5000) // 5 second timeout
+    });
+    
+    if (aiHealth.ok) {
+      health.ai_service = "connected";
+    } else {
+      health.ai_service = "unreachable";
+      health.status = "degraded";
+    }
+  } catch (error) {
+    health.ai_service = "error";
+    health.ai_error = error.message;
+    health.status = "degraded";
+  }
+
+  const statusCode = health.status === "ok" ? 200 : 503;
+  res.status(statusCode).json(health);
+});
+
+// Root endpoint
+app.get("/", (req, res) => {
+  res.json({
+    name: "EcoAI Backend API",
+    version: "1.0.0",
+    endpoints: {
+      health: "/health",
+      analyze: "POST /analyze"
+    }
+  });
 });
 
 app.listen(PORT, () => {
-  console.log(`🌍 EcoAI backend running on http://localhost:${PORT}`);
+  console.log(`🌍 EcoAI backend running on port ${PORT}`);
   console.log(`📊 API endpoint: http://localhost:${PORT}/analyze`);
+  console.log(`❤️  Health check: http://localhost:${PORT}/health`);
 });
