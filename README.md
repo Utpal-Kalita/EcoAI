@@ -22,7 +22,18 @@ The script will:
 
 **Access the application at:** http://localhost:3000
 
-### Manual Docker Deployment
+📖 **New to EcoAI?** Start here: [Getting Started Guide](GETTING_STARTED.md)
+
+### Alternative Deployment Methods
+
+#### Using Make (Convenient)
+```bash
+make install  # Setup environment
+make validate # Check prerequisites
+make deploy   # Build and deploy
+```
+
+#### Using Docker Compose (Manual)
 ```bash
 # 1. Set up environment
 cp .env.example .env
@@ -39,7 +50,14 @@ docker-compose ps
 docker-compose logs -f
 ```
 
-For detailed deployment instructions, troubleshooting, and production deployment, see [DEPLOYMENT.md](DEPLOYMENT.md).
+### 📚 Documentation
+
+- 📖 [Getting Started Guide](GETTING_STARTED.md) - Perfect for first-time users
+- 🐳 [Docker Guide](DOCKER.md) - Detailed Docker deployment and management
+- 🚀 [Deployment Guide](DEPLOYMENT.md) - Comprehensive deployment with troubleshooting
+- 🛠️ [Makefile Commands](Makefile) - Quick reference for `make` commands
+
+For detailed deployment instructions, troubleshooting, and production deployment, see the documentation above.
 
 ## Features
 - Input daily habits (energy use, travel, diet) for carbon footprint analysis

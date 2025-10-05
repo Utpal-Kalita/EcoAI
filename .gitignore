@@ -19,7 +19,6 @@ build/
 *.whl
 
 # Docker
-*.dockerignore
 docker-compose.override.yml
 
 # Environment
