@@ -47,6 +47,13 @@ Ready to deploy? Check out our deployment guides:
 
 See [QUICKDEPLOY.md](./QUICKDEPLOY.md) for detailed deployment instructions.
 
+## 📚 Documentation
+
+- **[Quick Deploy Guide](./QUICKDEPLOY.md)** - One-click deployment with buttons
+- **[Full Deployment Guide](./DEPLOYMENT.md)** - Comprehensive step-by-step instructions
+- **[Deployment Reference](./DEPLOY-REFERENCE.md)** - Quick reference card
+- **[Architecture Overview](./ARCHITECTURE.md)** - System architecture and data flow
+- **[Troubleshooting](./TROUBLESHOOTING.md)** - Common issues and solutions
 
 
 ## Architecture Diagram
