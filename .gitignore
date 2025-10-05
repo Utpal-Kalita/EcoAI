@@ -50,3 +50,7 @@ Thumbs.db
 tmp/
 temp/
 file.txt
+
+# Deployment
+.vercel
+.render

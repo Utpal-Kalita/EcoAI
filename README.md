@@ -1,4 +1,9 @@
 # EcoAI: GenAI-Powered Climate Action Advisor
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Utpal-Kalita/EcoAI&project-name=ecoai&repository-name=ecoai&root-directory=frontend)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https://github.com/Utpal-Kalita/EcoAI)
+
 EcoAI is an interactive web platform developed for the FutureStack GenAI hackathon (Sept 29 - Oct 5, 2025). It empowers users to reduce their carbon footprint through AI-driven insights, personalized sustainability plans, and real-time "what-if" simulations. Built with Next.js, Node.js/Express, Meta's Llama 3.1, Cerebras, and Docker, ecoAI combines cutting-edge AI with a polished UX to make climate action accessible.
 
 ## Features
@@ -7,6 +12,21 @@ EcoAI is an interactive web platform developed for the FutureStack GenAI hackath
 - Run real-time simulations with Cerebras-accelerated inference
 - Interactive dashboards with Recharts visualizations
 - Dockerized deployment for scalability
+- **🚀 One-click deployment to free hosting platforms**
+
+## ⚡ Quick Start - Deploy Now!
+
+Get EcoAI running in the cloud in just 10 minutes:
+
+1. **[Quick Deploy Guide](./QUICKDEPLOY.md)** - One-click deployment buttons
+2. **[Full Deployment Guide](./DEPLOYMENT.md)** - Step-by-step instructions
+3. **[Deployment Checklist](./CHECKLIST.md)** - Ensure nothing is missed
+
+**Deployment Options:**
+- ✅ **Vercel (Frontend)** - Free tier, global CDN
+- ✅ **Render (Backend + AI)** - Free tier, 750 hours/month
+- ✅ **Railway (Full Stack)** - $5 free credit/month
+- ✅ **Docker** - Self-hosted option
 
 ## Tech Stack
 - **Frontend:** Next.js 14.x
@@ -28,6 +48,32 @@ EcoAI is an interactive web platform developed for the FutureStack GenAI hackath
    - Backend: `cd backend; npm run dev` (Make sure backend is running on port 3001).
    - Frontend: `cd frontend; npm run dev` (Make sure frontend is running on port 3000).
 5. Access the app at `http://localhost:3000`.
+
+## 🚀 Deploy to Production
+
+Ready to deploy? Check out our deployment guides:
+
+- **[Quick Deploy Guide](./QUICKDEPLOY.md)** - One-click deployment buttons
+- **[Full Deployment Guide](./DEPLOYMENT.md)** - Detailed step-by-step instructions
+
+### Quick Deploy Options
+
+**Option 1: Vercel (Frontend) + Render (Backend + AI)**
+- Frontend: [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Utpal-Kalita/EcoAI&project-name=ecoai&repository-name=ecoai&root-directory=frontend)
+- Backend + AI: [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
+
+**Option 2: Railway (Full Stack)**
+- [![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template?template=https://github.com/Utpal-Kalita/EcoAI)
+
+See [QUICKDEPLOY.md](./QUICKDEPLOY.md) for detailed deployment instructions.
+
+## 📚 Documentation
+
+- **[Quick Deploy Guide](./QUICKDEPLOY.md)** - One-click deployment with buttons
+- **[Full Deployment Guide](./DEPLOYMENT.md)** - Comprehensive step-by-step instructions
+- **[Deployment Reference](./DEPLOY-REFERENCE.md)** - Quick reference card
+- **[Architecture Overview](./ARCHITECTURE.md)** - System architecture and data flow
+- **[Troubleshooting](./TROUBLESHOOTING.md)** - Common issues and solutions
 
 
 ## Architecture Diagram
